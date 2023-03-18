@@ -1,0 +1,20 @@
+epoch,loss,precision,recall
+1,"tensor(0.7196, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.028629105538129807,0.4548105001449585
+2,"tensor(0.7202, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.033754512667655945,0.47826087474823
+3,"tensor(0.7198, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.034119781106710434,0.519336998462677
+4,"tensor(0.7111, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.034501947462558746,0.4818652868270874
+5,"tensor(0.7096, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.03549734130501747,0.53125
+6,"tensor(0.7088, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.03290710970759392,0.49435028433799744
+7,"tensor(0.6995, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.03264208883047104,0.48022598028182983
+8,"tensor(0.7101, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.032312605530023575,0.456233412027359
+9,"tensor(0.7088, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.033589791506528854,0.49175822734832764
+10,"tensor(0.7020, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.035996150225400925,0.4770408272743225
+11,"tensor(0.6942, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.0372793972492218,0.46650123596191406
+12,"tensor(0.7009, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.031237948685884476,0.4354838728904724
+13,"tensor(0.7050, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.037440307438373566,0.48275861144065857
+14,"tensor(0.7043, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.033868782222270966,0.47683924436569214
+15,"tensor(0.7024, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.03516147658228874,0.4842105209827423
+16,"tensor(0.7000, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.03740309923887253,0.49614396691322327
+17,"tensor(0.7057, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.03273007273674011,0.46195653080940247
+18,"tensor(0.7049, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.031560491770505905,0.41645243763923645
+19,"tensor(0.6969, device='cuda:0', grad_fn=<BinaryCrossEntropyBackward>)",0.035387907177209854,0.4595959484577179
