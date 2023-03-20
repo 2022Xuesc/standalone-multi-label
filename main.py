@@ -105,10 +105,10 @@ train_data = my_dataset(train_label_path, images_dir=train_images_dir, transform
                         loader=load_image)  # 读取一张图片
 val_data = my_dataset(val_label_path, images_dir=val_image_dir, transform=data_transforms['val'], loader=load_image)
 
-batch_size = 128
+batch_size = 64
 
 data_loaders = {
-    'train': DataLoader(train_data, batch_size=batch_size, shuffle=True),
+    'train': DataLoader(train_data, batch_size=batch_size),
     'val': DataLoader(val_data, batch_size=batch_size)
 }
 # 数据集大小
@@ -159,10 +159,10 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=16):
                     loss.backward()
                     # 更新权重
                     optimizer.step()
-                    scheduler.step()
                     total_loss += loss.item() * inputs.size(0)
 
                     print('       progress: {}/{} '.format(batch_num, total_batch))
+                scheduler.step()
             # 验证阶段
             # Todo: 先不进行验证
             else:
@@ -267,8 +267,8 @@ if __name__ == '__main__':
     # Todo: python中的id函数返回对象的唯一标识符
     fc_params = list(map(id, model.classifier[6].parameters()))
     base_params = filter(lambda p: id(p) not in fc_params, model.parameters())
-    params = [{"params": base_params, "lr": 0.0001},
-              {"params": model.classifier[6].parameters(), "lr": 0.001}, ]
+    params = [{"params": base_params, "lr": 0.1},
+              {"params": model.classifier[6].parameters(), "lr": 0.1}, ]
     optimizer_ft = torch.optim.SGD(params, momentum=0.9)
-    exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=5, gamma=0.1)
-    train_model(model, criterion, optimizer_ft, exp_lr_scheduler, num_epochs=10)
+    exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=5, gamma=0.99)
+    train_model(model, criterion, optimizer_ft, exp_lr_scheduler, num_epochs=1000)

@@ -61,18 +61,6 @@ def generate_2014(src_dir, left, right, target_dir):
         shutil.copy(fullpath, target_dir)
 
 
-src_dir = '../dataset/ms-coco/src_val'
-train_dir = '../dataset/ms-coco/train2014'
-val_dir = '../dataset/ms-coco/val2014'
-test_dir = '../dataset/ms-coco/test2014'
-
-
-# Todo: 创建图像集合
-generate_2014(src_dir, 0, 0.8, train_dir)
-# 创建验证集
-generate_2014(src_dir, 0.8, 1, val_dir)
-# 创建测试集
-generate_2014(src_dir, 2000, 3000, test_dir)
 
 # 为每个数据集生成标签
 
@@ -86,28 +74,34 @@ def write_labels(labels, label_path):
         f.write('\n')
 
 
-def generate_labels(dir_path):
-    labels_path = os.path.join(dir_path, 'labels.txt')
-    if os.path.exists(labels_path):
-        os.remove(labels_path)
-
-    labels = []
-    files = os.listdir(dir_path)
-    image2labels = get_image2labels()
-    for filename in files:
-        # 字典json本地存储后,键改为了str类型
-        image_id = str(get_image_id(filename))
-        # 有些图片可能未被标注
-        if image_id in image2labels.keys():
-            # label是一个90维度的张量
-            label = [filename]
-            label.extend(['0'] * 90)
-            for id_index in image2labels[image_id]:
-                label[id_index] = '1'
-            labels.append(label)
-    # Todo: 将labels写入文件中
-    write_labels(labels, labels_path)
+def generate_configs(dir_paths):
+    for dir_path in dir_paths:
+        config_path = os.path.join(dir_path, 'config.yaml')
+        if not os.path.exists(config_path):
+            file = open(config_path, 'w')
+            file.close()
 
 
-generate_labels(train_dir)
-generate_labels(val_dir)
+def generate_labels(dir_paths):
+    for dir_path in dir_paths:
+        labels_path = os.path.join(dir_path, 'labels.txt')
+        if os.path.exists(labels_path):
+            os.remove(labels_path)
+
+        labels = []
+        files = os.listdir(dir_path)
+        image2labels = get_image2labels()
+        for filename in files:
+            # 字典json本地存储后,键改为了str类型
+            image_id = str(get_image_id(filename))
+            # 有些图片可能未被标注
+            if image_id in image2labels.keys():
+                # label是一个90维度的张量
+                label = [filename]
+                label.extend(['0'] * 90)
+                for id_index in image2labels[image_id]:
+                    label[id_index] = '1'
+                labels.append(label)
+        # Todo: 将labels写入文件中
+        write_labels(labels, labels_path)
+
