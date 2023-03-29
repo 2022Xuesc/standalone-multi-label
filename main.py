@@ -242,6 +242,30 @@ def calculate_accuracy_mode2(model_pred, labels):
     return precision, recall
 
 
+class PairwiseLoss(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    # 这里x是模型预测输出，y是真实标签
+    def forward(self, x, y):
+        # 1. 从y中提取正确标签集与负标签集
+        px = x[y == 1]
+        nx = x[y == 0]
+        # 2. 计算px和nx之间的pairwise距离
+        px = px.reshape(3, 1)
+        m = px - nx
+        return torch.mean(torch.exp(-m))
+
+
+# 输入n乘Q+1的矩阵，以及m*1维的向量
+# 使用最小二乘法计算出模型w，满足Aw+t
+def get_thresh_model(A, t):
+    A_T = A.transpose(0, 1)
+    # 对以下矩阵求逆
+    # Todo: 对需要求逆的矩阵加上小常数
+    return torch.inverse(A_T @ A) @ A_T @ t
+
+
 # 对AlexNet模型进行修改
 if __name__ == '__main__':
     model = models.alexnet(pretrained=True)
@@ -261,7 +285,6 @@ if __name__ == '__main__':
     if use_gpu:
         model = model.cuda()
     # 定义损失函数
-    # Todo: 关于BCELoss的学习
     criterion = nn.BCELoss()
 
     # Todo: python中的id函数返回对象的唯一标识符
